@@ -126,20 +126,16 @@ function createStatusBadge(status) {
   const badge = document.createElement("span");
   badge.className = "product-badge";
   badge.textContent = status;
-  if (status === "In Stock") {
-    badge.classList.add("badge-in-stock");
-  } else if (status === "Low Stock") {
-    badge.classList.add("badge-low-stock");
-  } else if (status === "Out of Stock") {
-    badge.classList.add("badge-out-of-stock");
-  }
+  if (status === "In Stock") badge.classList.add("badge-in-stock");
+  else if (status === "Low Stock") badge.classList.add("badge-low-stock");
+  else if (status === "Out of Stock") badge.classList.add("badge-out-of-stock");
   return badge;
 }
 
 function createNewBadge() {
   const badge = document.createElement("span");
-  //   badge.className = "product-badge badge-new";
-  //   badge.textContent = "New";
+  badge.className = "product-badge badge-new";
+  badge.textContent = "New";
   return badge;
 }
 
@@ -150,7 +146,6 @@ function createProductsGrid(products) {
     const cardDiv = document.createElement("div");
     cardDiv.className = "product-card";
 
-    // Image
     const imgWrap = document.createElement("div");
     imgWrap.className = "product-img-wrap";
     const img = document.createElement("img");
@@ -159,7 +154,6 @@ function createProductsGrid(products) {
     img.alt = product.name;
     imgWrap.appendChild(img);
 
-    // badges
     const badgesWrap = document.createElement("div");
     badgesWrap.className = "badges-wrap";
     if (product.isNew) badgesWrap.appendChild(createNewBadge());
@@ -171,23 +165,34 @@ function createProductsGrid(products) {
 
     const info = document.createElement("div");
     info.className = "product-info";
+
     const name = document.createElement("div");
     name.className = "product-title";
     name.textContent = product.name;
+
     const desc = document.createElement("div");
     desc.className = "product-desc";
     desc.textContent = product.description;
+
+    const infoBar = document.createElement("div");
+    infoBar.className = "product-info-bar";
+
+    const statusBadge = createStatusBadge(product.status);
+    infoBar.appendChild(statusBadge);
+
+    const sold = document.createElement("span");
+    sold.className = "product-sold";
+    sold.textContent = `${product.unitsSold.toLocaleString()} sold`;
+    infoBar.appendChild(sold);
+
     const price = document.createElement("div");
     price.className = "product-price";
     price.textContent = `₹${product.price.toLocaleString()}`;
-    const sold = document.createElement("div");
-    sold.className = "product-sold";
-    sold.textContent = `${product.unitsSold.toLocaleString()} sold`;
 
     info.appendChild(name);
     info.appendChild(desc);
+    info.appendChild(infoBar);
     info.appendChild(price);
-    info.appendChild(sold);
 
     cardDiv.appendChild(imgWrap);
     cardDiv.appendChild(info);
@@ -195,6 +200,67 @@ function createProductsGrid(products) {
     grid.appendChild(cardDiv);
   });
   return grid;
+}
+const barChartData = [
+  { date: "01-01-2025", label: "Jan", Mobile: 80, Desktop: 100 },
+  { date: "01-02-2025", label: "Feb", Mobile: 70, Desktop: 90 },
+  { date: "01-03-2025", label: "Mar", Mobile: 60, Desktop: 70 },
+  { date: "01-04-2025", label: "Apr", Mobile: 85, Desktop: 95 },
+  { date: "01-05-2025", label: "May", Mobile: 80, Desktop: 100 },
+];
+
+const pieChartData = [
+  { date: "01-01-2025", label: "Jan", revenue: 18000 },
+  { date: "01-02-2025", label: "Feb", revenue: 28000 },
+  { date: "01-03-2025", label: "Mar", revenue: 12000 },
+  { date: "01-04-2025", label: "Apr", revenue: 22000 },
+  { date: "01-05-2025", label: "May", revenue: 20000 },
+];
+
+const chartColors = {
+  Mobile: "#9bbcf7",
+  Desktop: "#6d8df2",
+  pie: ["#9bbcf7", "#6d8df2", "#a5e3d8", "#f4c542", "#f57f7f"],
+};
+
+function createChartsScreen() {
+  const chartsWrap = document.createElement("div");
+  chartsWrap.className = "charts-wrap";
+
+  const barCard = document.createElement("div");
+  barCard.className = "chart-card";
+  const barTitle = document.createElement("div");
+  barTitle.className = "chart-title";
+  barTitle.textContent = "Sale By Device";
+  const barSub = document.createElement("div");
+  barSub.className = "chart-subtitle";
+  barSub.textContent = "Jan 2025 - May 2025";
+  barCard.appendChild(barTitle);
+  barCard.appendChild(barSub);
+  const barChart = document.createElement("div");
+  barChart.className = "chart-area";
+  renderBarChart(barChart);
+  barCard.appendChild(barChart);
+
+  const pieCard = document.createElement("div");
+  pieCard.className = "chart-card";
+  const pieTitle = document.createElement("div");
+  pieTitle.className = "chart-title";
+  pieTitle.textContent = "Revenue Contribution";
+  const pieSub = document.createElement("div");
+  pieSub.className = "chart-subtitle";
+  pieSub.textContent = "Jan 2025 - May 2025";
+  pieCard.appendChild(pieTitle);
+  pieCard.appendChild(pieSub);
+  const pieChart = document.createElement("div");
+  pieChart.className = "chart-area";
+  renderPieChart(pieChart);
+  pieCard.appendChild(pieChart);
+
+  chartsWrap.appendChild(barCard);
+  chartsWrap.appendChild(pieCard);
+
+  return chartsWrap;
 }
 
 function renderSidebar(selectedScreen, onSelect) {
