@@ -1,8 +1,8 @@
 body {
-  background: #fff;
   font-family: "Segoe UI", Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background: #fff;
 }
 
 #app-root {
@@ -12,6 +12,7 @@ body {
 
 .sidebar {
   width: 160px;
+  min-width: 120px;
   border-right: 3px solid #f4c542;
   background: #fff;
   display: flex;
@@ -43,17 +44,22 @@ body {
 .main-content {
   flex: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
-  padding: 60px 0;
+  padding: 60px 40px;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
-  width: 600px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .dashboard-card {
@@ -87,4 +93,157 @@ body {
   color: #888;
   margin-top: auto;
   text-align: right;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 340px;
+  box-shadow: 0 2px 12px 0 rgba(30, 30, 75, 0.06);
+  transition: box-shadow 0.1s;
+  position: relative;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 24px rgba(30, 30, 75, 0.1);
+}
+
+.product-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 14px 14px 0 0;
+  background: #f6f6f6;
+}
+
+.badges-wrap {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+}
+
+.product-badge {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 16px;
+  color: #fff;
+  background: #bbb;
+  margin-bottom: 2px;
+  letter-spacing: 0.1px;
+  line-height: 1.5;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.badge-in-stock {
+  background: #2ecc40;
+}
+
+.badge-low-stock {
+  background: #f4c542;
+  color: #222;
+}
+
+.badge-out-of-stock {
+  background: #f54242;
+}
+
+.badge-new {
+  background: #21b573;
+}
+
+.product-info {
+  padding: 18px 20px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.product-title {
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #222;
+  letter-spacing: 0.1px;
+}
+
+.product-desc {
+  font-size: 0.97rem;
+  color: #666a;
+  margin-bottom: 12px;
+  min-height: 40px;
+  max-height: 48px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.product-price {
+  font-size: 1.19rem;
+  color: #222;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.product-sold {
+  font-size: 0.92rem;
+  color: #888;
+  margin-top: auto;
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    padding: 30px 10px;
+  }
+  .dashboard-grid,
+  .products-grid {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    width: 60px;
+    padding-top: 16px;
+  }
+  .sidebar-option {
+    padding: 10px 8px;
+    font-size: 0.95rem;
+  }
+  .main-content {
+    padding: 10px 4px;
+  }
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
 }
