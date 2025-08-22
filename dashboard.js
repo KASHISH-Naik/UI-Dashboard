@@ -97,7 +97,6 @@ const barDataDesktop = [100, 90, 70, 95, 100];
 const pieLabels = ["Jan", "Feb", "Mar", "Apr", "May"];
 const pieData = [18000, 28000, 12000, 22000, 20000];
 
-// --- UI Utility Functions ---
 function formatDate(ts) {
   const d = new Date(ts);
   return d.toLocaleDateString(undefined, {
@@ -154,7 +153,6 @@ function createProductsGrid(products) {
     const cardDiv = document.createElement("div");
     cardDiv.className = "product-card";
 
-    // Image
     const imgWrap = document.createElement("div");
     imgWrap.className = "product-img-wrap";
     const img = document.createElement("img");
@@ -163,7 +161,6 @@ function createProductsGrid(products) {
     img.alt = product.name;
     imgWrap.appendChild(img);
 
-    // badges
     const badgesWrap = document.createElement("div");
     badgesWrap.className = "badges-wrap";
     if (product.isNew) badgesWrap.appendChild(createNewBadge());
@@ -173,31 +170,28 @@ function createProductsGrid(products) {
       badgesWrap.appendChild(createStatusBadge(product.status));
     imgWrap.appendChild(badgesWrap);
 
-    // Info
     const info = document.createElement("div");
     info.className = "product-info";
-    // Title
+
     const name = document.createElement("div");
     name.className = "product-title";
     name.textContent = product.name;
-    // Desc
+
     const desc = document.createElement("div");
     desc.className = "product-desc";
     desc.textContent = product.description;
 
-    // Info bar
     const infoBar = document.createElement("div");
     infoBar.className = "product-info-bar";
-    // Status
+
     const statusBadge = createStatusBadge(product.status);
     infoBar.appendChild(statusBadge);
-    // Sold
+
     const sold = document.createElement("span");
     sold.className = "product-sold";
     sold.textContent = `${product.unitsSold.toLocaleString()} sold`;
     infoBar.appendChild(sold);
 
-    // Price
     const price = document.createElement("div");
     price.className = "product-price";
     price.textContent = `₹${product.price.toLocaleString()}`;
