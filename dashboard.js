@@ -138,8 +138,8 @@ function createStatusBadge(status) {
 
 function createNewBadge() {
   const badge = document.createElement("span");
-  badge.className = "product-badge badge-new";
-  badge.textContent = "New";
+  //   badge.className = "product-badge badge-new";
+  //   badge.textContent = "New";
   return badge;
 }
 
