@@ -59,8 +59,29 @@ function createDashboardGrid(cards) {
 
   return grid;
 }
+const sidebar = document.createElement("div");
+sidebar.className = "sidebar";
+const screens = ["Cards 1", "Cards 2"];
+screens.forEach((screen, idx) => {
+  const btn = document.createElement("button");
+  btn.className =
+    "sidebar-option" + (selectedScreen === idx ? " selected" : "");
+  btn.textContent = screen;
+  btn.onclick = () => renderApp(idx);
+  sidebar.appendChild(btn);
+});
+
+const main = document.createElement("div");
+main.className = "main-content";
+if (selectedScreen === 0) {
+  main.appendChild(createDashboardGrid(cardsData));
+} else {
+  main.innerHTML = "";
+}
+
+root.appendChild(sidebar);
+root.appendChild(main);
 
 document.addEventListener("DOMContentLoaded", () => {
-  const root = document.getElementById("dashboard-root");
-  root.appendChild(createDashboardGrid(cardsData));
+  renderApp(0);
 });
